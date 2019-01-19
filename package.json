@@ -1,8 +1,9 @@
 {
   "name": "event-switch",
   "version": "0.0.0",
-  "description": "TBD",
+  "description": "HTML Event Router",
   "main": "event-switch.js",
+  "module": "event-switch.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
