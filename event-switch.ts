@@ -29,6 +29,7 @@ export function addEventListeners(target: EventTarget, ctx: EventSwitchContext){
     }
 }
 function processRule(rule: Rule,  e: Event, ctx: EventSwitchContext){
+    const target = e.target as HTMLElement;
     if(rule.action !== undefined){
         rule.action(e, ctx);
     }
@@ -38,8 +39,12 @@ function processRule(rule: Rule,  e: Event, ctx: EventSwitchContext){
             if(!matchRule.type) matchRule.type = 'targetMatch';
             switch(matchRule.type){
                 case 'targetMatch':
+                    if(target.matches && target.matches(matchRuleKey)){
+                        processRule(matchRule, e, ctx);
+                    }
                     break;
                 case 'propMatch':
+                    throw 'Not Implemented'
                     break; 
             }
         }
