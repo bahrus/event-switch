@@ -1,6 +1,6 @@
 {
   "name": "event-switch",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "HTML Event Router",
   "main": "event-switch.js",
   "module": "event-switch.js",
