@@ -8,20 +8,21 @@
 </head>
 <body>
     <div>
-        <button id="testEl"></button>
+        <button id="testEl">click</button>
     </div>
-    <script>
-        const eventRouter = {
+    <script type="module">
+        import {addEventListeners} from '../event-switch.js'
+        const eventSwitch = {
             click:{
                 route:{
                     '#testEl':{
-                        testType: 'targetMatch', //default
+                        type: 'targetMatch', //default
                         action: e =>{
-
+                            console.log('1');
                         }
                     },
                     42:{
-                        testType: 'propMatch',
+                        type: 'propMatch',
                         expression: 'keyCode',
                         action: e =>{
 
@@ -40,6 +41,7 @@
                 }
             }
         }
+        addEventListeners(testEl, {eventSwitch});
     </script>
 </body>
 </html>
