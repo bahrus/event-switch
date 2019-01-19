@@ -44,7 +44,14 @@ function processRule(rule: Rule,  e: Event, ctx: EventSwitchContext){
                     }
                     break;
                 case 'propMatch':
-                    throw 'Not Implemented'
+                    const propTokens = matchRule.expression.split('.');
+                    let val = e as any;
+                    propTokens.forEach(token =>{
+                        if(val) val = val[token];
+                    })
+                    if(val && val === matchRuleKey){
+                        processRule(matchRule, e, ctx);
+                    }
                     break; 
             }
         }

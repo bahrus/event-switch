@@ -23,7 +23,15 @@ function processRule(rule, e, ctx) {
                     }
                     break;
                 case 'propMatch':
-                    throw 'Not Implemented';
+                    const propTokens = matchRule.expression.split('.');
+                    let val = e;
+                    propTokens.forEach(token => {
+                        if (val)
+                            val = val[token];
+                    });
+                    if (val && val === matchRuleKey) {
+                        processRule(matchRule, e, ctx);
+                    }
                     break;
             }
         }
