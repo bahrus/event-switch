@@ -16,6 +16,6 @@ export interface Rule extends Test{
 
 
 export interface EventSwitchContext{
-    addEventListeners: (target: EventTarget, ctx: EventSwitchContext) => EventSwitchContext;
-    eventSwitch: RuleMapping;
+    addEventListeners?: (target: EventTarget, ctx: EventSwitchContext) => EventSwitchContext;
+    eventSwitch?: RuleMapping;
 }
