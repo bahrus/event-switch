@@ -1,12 +1,13 @@
 import {Rule, EventSwitchContext} from './event-switch.d.js';
 
-export function addEventListeners(target: EventTarget, ctx: EventSwitchContext){
+export function addEventListeners(target: EventTarget, ctx: EventSwitchContext) : EventSwitchContext{
     for(const key in ctx.eventSwitch){
         const rule = ctx.eventSwitch[key];
         target.addEventListener(key, e =>{
             processRule(rule, e, ctx);
         })
     }
+    return ctx;
 }
 function processRule(rule: Rule,  e: Event, ctx: EventSwitchContext){
     const target = e.target as HTMLElement;

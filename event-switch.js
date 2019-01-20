@@ -5,6 +5,7 @@ export function addEventListeners(target, ctx) {
             processRule(rule, e, ctx);
         });
     }
+    return ctx;
 }
 function processRule(rule, e, ctx) {
     const target = e.target;
