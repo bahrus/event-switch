@@ -10,8 +10,8 @@ export interface Test{
 type RuleMapping = {[key: string] : Rule};
 
 export interface Rule extends Test{
-    action: (e: Event, ctx: EventSwitchContext) => undefined | Rule,
-    route: RuleMapping,
+    action?: (e: Event, ctx: EventSwitchContext) => undefined | Rule,
+    route?: RuleMapping,
 }
 
 
