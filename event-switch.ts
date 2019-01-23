@@ -25,7 +25,7 @@ function processRule(rule: Rule,  e: Event, ctx: EventSwitchContext){
                     }
                     break;
                 case 'propMatch':
-                    const propTokens = matchRule.expression.split('.');
+                    const propTokens = matchRule.expression!.split('.');
                     let val = e as any;
                     propTokens.forEach(token =>{
                         if(val) val = val[token];
