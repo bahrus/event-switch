@@ -7,14 +7,22 @@ export function addEventListeners(target, ctx) {
     }
     return ctx;
 }
-function processRule(rule, e, ctx) {
+function processRule(ruleOrHandler, e, ctx) {
     const target = e.target;
-    if (rule.action !== undefined) {
-        rule.action(e, ctx);
+    if (typeof ruleOrHandler === 'function') {
+        ruleOrHandler(e);
+        return; //TODO, deal with return object?
     }
-    if (rule.route !== undefined) {
-        for (const matchRuleKey in rule.route) {
-            const matchRule = rule.route[matchRuleKey];
+    if (ruleOrHandler.action !== undefined) {
+        ruleOrHandler.action(e, ctx);
+    }
+    if (ruleOrHandler.route !== undefined) {
+        for (const matchRuleKey in ruleOrHandler.route) {
+            const matchRule = ruleOrHandler.route[matchRuleKey];
+            if (typeof matchRule === 'function') {
+                matchRule(e);
+                continue;
+            }
             if (!matchRule.type)
                 matchRule.type = 'targetMatch';
             switch (matchRule.type) {

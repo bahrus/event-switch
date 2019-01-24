@@ -1,4 +1,4 @@
-import {Rule, EventSwitchContext} from './event-switch.d.js';
+import {Rule, EventSwitchContext, EventHandler} from './event-switch.d.js';
 
 export function addEventListeners(target: EventTarget, ctx: EventSwitchContext) : EventSwitchContext{
     for(const key in ctx.eventSwitch){
@@ -9,14 +9,22 @@ export function addEventListeners(target: EventTarget, ctx: EventSwitchContext) 
     }
     return ctx;
 }
-function processRule(rule: Rule,  e: Event, ctx: EventSwitchContext){
+function processRule(ruleOrHandler: Rule | EventHandler,  e: Event, ctx: EventSwitchContext){
     const target = e.target as HTMLElement;
-    if(rule.action !== undefined){
-        rule.action(e, ctx);
+    if(typeof ruleOrHandler === 'function'){
+        ruleOrHandler(e);
+        return;//TODO, deal with return object?
     }
-    if(rule.route !== undefined){
-        for(const matchRuleKey in rule.route){
-            const matchRule = rule.route[matchRuleKey];
+    if(ruleOrHandler.action !== undefined){
+        ruleOrHandler.action(e, ctx);
+    }
+    if(ruleOrHandler.route !== undefined){
+        for(const matchRuleKey in ruleOrHandler.route){
+            const matchRule = ruleOrHandler.route[matchRuleKey];
+            if(typeof matchRule === 'function'){
+                matchRule(e);
+                continue;
+            }
             if(!matchRule.type) matchRule.type = 'targetMatch';
             switch(matchRule.type){
                 case 'targetMatch':
