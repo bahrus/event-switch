@@ -12,7 +12,7 @@ export function addEventListeners(target: EventTarget, ctx: EventSwitchContext) 
 function processRule(ruleOrHandler: Rule | EventHandler,  e: Event, ctx: EventSwitchContext){
     const target = e.target as HTMLElement;
     if(typeof ruleOrHandler === 'function'){
-        ruleOrHandler(e);
+        ruleOrHandler(e, ctx);
         return;//TODO, deal with return object?
     }
     if(ruleOrHandler.action !== undefined){
@@ -22,7 +22,7 @@ function processRule(ruleOrHandler: Rule | EventHandler,  e: Event, ctx: EventSw
         for(const matchRuleKey in ruleOrHandler.route){
             const matchRule = ruleOrHandler.route[matchRuleKey];
             if(typeof matchRule === 'function'){
-                matchRule(e);
+                matchRule(e, ctx);
                 continue;
             }
             if(!matchRule.type) matchRule.type = 'targetMatch';

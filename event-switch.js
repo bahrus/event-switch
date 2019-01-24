@@ -10,7 +10,7 @@ export function addEventListeners(target, ctx) {
 function processRule(ruleOrHandler, e, ctx) {
     const target = e.target;
     if (typeof ruleOrHandler === 'function') {
-        ruleOrHandler(e);
+        ruleOrHandler(e, ctx);
         return; //TODO, deal with return object?
     }
     if (ruleOrHandler.action !== undefined) {
@@ -20,7 +20,7 @@ function processRule(ruleOrHandler, e, ctx) {
         for (const matchRuleKey in ruleOrHandler.route) {
             const matchRule = ruleOrHandler.route[matchRuleKey];
             if (typeof matchRule === 'function') {
-                matchRule(e);
+                matchRule(e, ctx);
                 continue;
             }
             if (!matchRule.type)

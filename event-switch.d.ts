@@ -1,4 +1,4 @@
-export type EventHandler = (e: Event) => void | EventSwitchContext;
+export type EventHandler = (e?: Event, ctx?: EventSwitchContext) => void | EventSwitchContext;
 
 export type TestType = 'targetMatch' | 'propMatch';
 
@@ -10,7 +10,7 @@ export interface Test{
 type RuleMapping = {[key: string] : Rule | EventHandler};
 
 export interface Rule extends Test{
-    action?: (e: Event, ctx: EventSwitchContext) => void | Rule,
+    action?: (e?: Event, ctx?: EventSwitchContext) => void | Rule,
     route?: RuleMapping,
 }
 
