@@ -1,6 +1,6 @@
 export function addEventListeners(target, ctx) {
-    for (const key in ctx.eventSwitch) {
-        const rule = ctx.eventSwitch[key];
+    for (const key in ctx.eventRules) {
+        const rule = ctx.eventRules[key];
         target.addEventListener(key, e => {
             processRule(rule, e, ctx);
         });
