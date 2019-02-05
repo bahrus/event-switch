@@ -1,4 +1,4 @@
-export type EventHandler = (e?: Event, ctx?: EventContext) => void | EventContext;
+export type EventHandler = (e?: Event, ctx?: EventContext) => void | EventContext | boolean | string | number;
 
 export type TestType = 'targetMatch' | 'propMatch';
 
