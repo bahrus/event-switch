@@ -7,6 +7,12 @@ export function addEventListeners(target, ctx) {
     }
     return ctx;
 }
+export function newEventContext(rules) {
+    return {
+        eventManager: addEventListeners,
+        eventRules: rules
+    };
+}
 function processRule(ruleOrHandler, e, ctx) {
     const target = e.target;
     if (typeof ruleOrHandler === 'function') {

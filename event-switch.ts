@@ -1,6 +1,6 @@
-import {Rule, EventSwitchContext, EventHandler} from './event-switch.d.js';
+import {Rule, EventContext, EventHandler, RuleMapping} from './event-switch.d.js';
 
-export function addEventListeners(target: EventTarget, ctx: EventSwitchContext) : EventSwitchContext{
+export function addEventListeners(target: EventTarget, ctx: EventContext) : EventContext{
     for(const key in ctx.eventRules){
         const rule = ctx.eventRules[key];
         target.addEventListener(key, e =>{
@@ -9,7 +9,15 @@ export function addEventListeners(target: EventTarget, ctx: EventSwitchContext) 
     }
     return ctx;
 }
-function processRule(ruleOrHandler: Rule | EventHandler,  e: Event, ctx: EventSwitchContext){
+export function newEventContext(rules: RuleMapping) : EventContext{
+    return {
+        eventManager: addEventListeners,
+        eventRules: rules
+    } as EventContext;
+}
+
+
+function processRule(ruleOrHandler: Rule | EventHandler,  e: Event, ctx: EventContext){
     const target = e.target as HTMLElement;
     if(typeof ruleOrHandler === 'function'){
         ruleOrHandler(e, ctx);
